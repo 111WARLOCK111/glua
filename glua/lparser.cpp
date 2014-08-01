@@ -987,6 +987,7 @@ static void simpleexp (LexState *ls, expdesc *v) {
 
 static UnOpr getunopr (int op) {
   switch (op) {
+  case TK_LNOT: return OPR_NOT;
     case TK_NOT: return OPR_NOT;
     case '-': return OPR_MINUS;
     case '#': return OPR_LEN;
@@ -1004,13 +1005,16 @@ static BinOpr getbinopr (int op) {
     case '%': return OPR_MOD;
     case '^': return OPR_POW;
     case TK_CONCAT: return OPR_CONCAT;
+	case TK_LNOTEQ:
     case TK_NE: return OPR_NE;
     case TK_EQ: return OPR_EQ;
     case '<': return OPR_LT;
     case TK_LE: return OPR_LE;
     case '>': return OPR_GT;
     case TK_GE: return OPR_GE;
+	case TK_LAND:
     case TK_AND: return OPR_AND;
+	case TK_LOR:
     case TK_OR: return OPR_OR;
     default: return OPR_NOBINOPR;
   }

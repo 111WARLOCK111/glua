@@ -465,6 +465,11 @@ static int llex (LexState *ls, SemInfo *seminfo) {
         if (ls->current != '=') return '>';
         else { next(ls); return TK_GE; }
       }
+	  case '!': {
+		  next(ls);
+		  if (ls->current != '=') return TK_LNOT;
+		  else { next(ls); return TK_LNOTEQ; }
+		}
       case '~': {
         next(ls);
         if (ls->current != '=') return '~';

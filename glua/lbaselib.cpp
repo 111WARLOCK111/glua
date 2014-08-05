@@ -87,6 +87,7 @@ static int luaB_tonumber (lua_State *L) {
     int neg = 0;
     luaL_argcheck(L, 2 <= base && base <= 36, 2, "base out of range");
     s += strspn(s, SPACECHARS);  /* skip initial spaces */
+	if (*s == '/') { s++; neg = 1; }
     if (*s == '-') { s++; neg = 1; }  /* handle signal */
     else if (*s == '+') s++;
     if (isalnum((unsigned char)*s)) {

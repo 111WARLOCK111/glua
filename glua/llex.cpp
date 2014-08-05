@@ -422,6 +422,29 @@ static int llex (LexState *ls, SemInfo *seminfo) {
         next(ls);
         break;
       }
+				//Dan East: support for // and /* */ style comments
+	  case '/': {
+		  next(ls);
+		  if (ls->current == '/') {
+			  while (ls->current != '\n' && ls->current != EOZ)
+				  next(ls);
+			  continue;
+		  } else if (ls->current == '*') {
+			  next(ls);
+			  while (ls->current != EOZ) {
+				  if (ls->current == '*') {
+					  next(ls);
+					  if (ls->current == '/') {
+						  next(ls);
+						  break;
+					  }
+				  }
+				  next(ls);
+			  }
+			  continue;
+		  } else
+			  return '/';
+				}
       case '-': {  /* '-' or '--' (comment) */
         next(ls);
         if (ls->current != '-') return '-';
